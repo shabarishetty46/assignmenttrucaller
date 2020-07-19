@@ -1,0 +1,26 @@
+pipeline{
+   agent any 
+   stages{
+    stage ('build docker image') {
+	     steps{
+		   sh "docker build . -t shettydocker/cassandra"
+		   
+		}
+		}
+	stage ('DockerHub Push'){
+         steps{
+		 withCreditionals([string(credentialsID: 'docker-hub',variable: 'dockerHubPwd']){
+		 sh "docker login -u shetty -p ${dockerHubPwd}"
+		 sh "docker push shettydocker/cassandra
+		 
+		 }
+		 }
+		 }
+    stage (Deploy kubernetes)
+	     steps {
+		 script
+		 kubernetesDeploy(configs: "cassandra.yml", kubeconfigID: "kubeconfig")
+		 }
+		 }
+		 }
+		 }

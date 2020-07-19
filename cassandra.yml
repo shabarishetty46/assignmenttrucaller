@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployement
+metadata:
+   name: Cassandra-assignment
+   labels:
+    app:cassandra
+spec:
+ replicas:3
+ selector:
+  matchlabels:
+    app:cassandra
+  template:
+   	metadata:
+     labels:
+    app:cassandra 
+	spec:
+	  container:
+	  - name:cassandra
+	    image:shabarishetty46/cassandra
+		ports:
+		 -containerPort:3000
+		resources:
+          limits:
+            cpu: "500m"
+            memory: 1Gi
+          requests:
+            cpu: "500m"
+            memory: 1Gi 
+	
+apiVersion: v1
+kind: Service
+metadata:
+  name: cassandra
+spec:
+  type: LoadBalancer
+  selector:
+    app: cassandra
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 3000	
+	
