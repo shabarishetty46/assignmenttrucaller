@@ -39,4 +39,15 @@ spec:
   - protocol: TCP
     port: 8080
     targetPort: 3000	
+
+
+
+
+#### for aws load balancer
+
+
+#metadata:
+#   name: cassandra
+#   annotations:
+#     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:::::  
 	
